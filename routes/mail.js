@@ -1,7 +1,6 @@
 const nodeMailer = require("nodemailer");
-const { Hello } = require("./hello_template");
 
-module.exports = async (name, authcode) => {
+module.exports = async (email, name, authcode) => {
 
     const transporter = nodeMailer.createTransport({
         service: "gmail",
@@ -16,16 +15,16 @@ module.exports = async (name, authcode) => {
 
     const mailOption = {
         from: process.env.NODEMAILER_USER,
-        to: name,
+        to: email,
         subject: "회원님의 인증 번호입니다.",
         html: `
         <!DOCTYPE html>
         <html style="margin: 0; padding: 0;">
             <head>
-                <title>이메일 인증하기</title>
+                <title>담다 이메일 인증</title>
             </head>
             <body style="margin: 0; padding: 0; font-size:15px;">
-                <div>인증번호는 ${authcode} 입니다.</div>
+                <div>${name}님 인증번호는 ${authcode} 입니다.</div>
             </body>
         </html>
     `,
